@@ -22,48 +22,24 @@ export default class TransactionScreen extends Component {
       bookId: "",
       studentId: "",
       domState: "normal",
-      hasCameraPermissions: null,
-      scanned: false
+      
+      //adicionar estados de captura e permissão
+     
     };
   }
 
-  getCameraPermissions = async domState => {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+ //escrever função para permissão da camera
 
-    this.setState({
-      /*status === "granted" é verdadeiro se o usuário concedeu permissão
-          status === "granted" é falso se o usuário não concedeu permissão
-        */
-      hasCameraPermissions: status === "granted",
-      domState: domState,
-      scanned: false
-    });
-  };
 
-  handleBarCodeScanned = async ({ type, data }) => {
-    const { domState } = this.state;
-
-    if (domState === "bookId") {
-      this.setState({
-        bookId: data,
-        domState: "normal",
-        scanned: true
-      });
-    } else if (domState === "studentId") {
-      this.setState({
-        studentId: data,
-        domState: "normal",
-        scanned: true
-      });
-    }
-  };
+  
+ //adicionar captura de QR CODE
 
   render() {
     const { bookId, studentId, domState, scanned } = this.state;
     if (domState !== "normal") {
       return (
         <BarCodeScanner
-          onBarCodeScanned={scanned ? undefined : this.handleBarCodeScanned}
+          onBarCodeScanned={/*codição com operador ternário*/}
           style={StyleSheet.absoluteFillObject}
         />
       );
